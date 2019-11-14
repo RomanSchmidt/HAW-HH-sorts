@@ -1,6 +1,7 @@
 package sort;
 
 import edu.princeton.cs.algs4.Queue;
+import edu.princeton.cs.algs4.StdRandom;
 
 import java.util.Random;
 
@@ -41,20 +42,24 @@ public class MergeBU extends ASort {
     private Queue<Comparable> combineComparables(Queue<Comparable> q1, Queue<Comparable> q2) {
         Queue<Comparable> q3 = new Queue<>();
         int length = q1.size() + q2.size();
-        for (int i = 0; i < length; ++i) {
-            int selectedQue = this._rand.nextInt(2);
-            if (selectedQue == 1 && q1.size() > 0 || q2.size() == 0) {
-                q3.enqueue(q1.dequeue());
-            } else {
-                q3.enqueue(q2.dequeue());
-            }
+        Comparable[] compArray = new Comparable[length];
+        int currentI = 0;
+        for (int i = 0, lengthQ1 = q1.size(); i < lengthQ1; ++i) {
+            compArray[currentI++] = q1.dequeue();
+        }
+        for (int i = 0, lengthQ2 = q2.size(); i < lengthQ2; ++i) {
+            compArray[currentI++] = q2.dequeue();
+        }
+        StdRandom.shuffle(compArray);
+        for (Comparable comparable : compArray) {
+            q3.enqueue(comparable);
         }
         return q3;
     }
 
-    public void sort(Comparable[] comparables) {
+    public void sort(Comparable[] list) {
         this.mainQueue = new Queue<>();
-        for (Comparable comparable : comparables) {
+        for (Comparable comparable : list) {
             Queue<Comparable> wrapQueForComparable = new Queue<>();
             wrapQueForComparable.enqueue(comparable);
             mainQueue.enqueue(wrapQueForComparable);
@@ -64,8 +69,8 @@ public class MergeBU extends ASort {
         }
 
         Queue<Comparable> b = mainQueue.dequeue();
-        for (int i = 0; i < comparables.length; i++) {
-            comparables[i] = b.dequeue();
+        for (int i = 0; i < list.length; i++) {
+            list[i] = b.dequeue();
         }
     }
 
@@ -83,7 +88,7 @@ public class MergeBU extends ASort {
                 this._counter += 4;
             } else {
                 c.enqueue(b.dequeue());
-                this._counter += 4;
+                this._counter += 6;
             }
         }
         return c;

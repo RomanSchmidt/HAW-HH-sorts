@@ -7,12 +7,12 @@ public abstract class ASort {
         return a.compareTo(b) < 0;
     }
 
-    public abstract void sort(Comparable[] a);
+    public abstract void sort(Comparable[] list);
 
-    protected void exch(Comparable[] a, int i, int j) {
-        Comparable t = a[i];
-        a[i] = a[j];
-        a[j] = t;
+    protected void exch(Comparable[] list, int i, int j) {
+        Comparable t = list[i];
+        list[i] = list[j];
+        list[j] = t;
     }
 
     public void show(Comparable[] a) {
@@ -28,9 +28,9 @@ public abstract class ASort {
         return true;
     }
 
-    public void start(Comparable[] args) {
-        sort(args);
-        assert isSorted(args);
-        show(args);
+    public void start(Comparable[] list) {
+        sort(list);
+        assert isSorted(list);
+        show(list);
     }
 }
