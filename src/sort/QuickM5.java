@@ -4,7 +4,7 @@ public class QuickM5 extends QuickM3 {
 
     public static void main(String[] args) {
         //String[] comparables = StdIn.readAllStrings();
-        Comparable[] comparables = new Comparable[]{1, 4, 5, 2, 3, 7, 8, 6, 10, 9};
+        Comparable[] comparables = new Comparable[]{2, 3, 5, 4, 1, 12, 11, 13, 16, 7, 8, 6, 10, 9, 17, 15, 19, 20, 18, 23, 21, 22, 25, 24, 14};
         new QuickM5().start(comparables);
     }
 

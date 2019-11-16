@@ -29,6 +29,12 @@ public class QuickM3 extends ASort {
             return;
         }
 
+        System.out.print("Part: ");
+        for (int i = lo; i < hi; ++i) {
+            System.out.print(list[i] + ",");
+        }
+        System.out.println();
+
         // cutoff to insertion sort (Insertion.sort() uses half-open intervals)
         int n = hi - lo + 1;
         if (n <= INSERTION_SORT_CUTOFF) {
