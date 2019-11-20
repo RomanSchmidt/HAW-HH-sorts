@@ -5,7 +5,7 @@ import edu.princeton.cs.algs4.StdRandom;
 
 public class QuickM3 extends ASort {
     // cutoff to insertion sort, must be >= 1
-    private static final int INSERTION_SORT_CUTOFF = 8;
+    private static final int INSERTION_SORT_CUTOFF = 1;
 
     public static void main(String[] args) {
         //String[] comparables = StdIn.readAllStrings();
@@ -30,7 +30,7 @@ public class QuickM3 extends ASort {
         }
 
         System.out.print("Part: ");
-        for (int i = lo; i < hi; ++i) {
+        for (int i = lo; i <= hi; ++i) {
             System.out.print(list[i] + ",");
         }
         System.out.println();

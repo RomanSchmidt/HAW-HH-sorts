@@ -8,7 +8,10 @@ import java.io.PrintWriter;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.*;
+import java.util.Arrays;
+import java.util.Comparator;
+import java.util.Random;
+import java.util.Scanner;
 
 public class Vector {
     private double[] values;
@@ -33,7 +36,7 @@ public class Vector {
         Scanner scanner = new Scanner(Paths.get(filename), StandardCharsets.UTF_8);
         Vector vector = stringToVector(scanner.nextLine());
 
-        MaxPQ<Vector> vectors = new MaxPQ<>(1, new Comparator<Vector>() {
+        MaxPQ<Vector> vectors = new MaxPQ<>(m + 1, new Comparator<Vector>() {
             public int compare(Vector v1, Vector v2) {
                 return Double.compare(v1.distanceTo(vector), v2.distanceTo(vector));
             }
@@ -50,7 +53,7 @@ public class Vector {
             while ((str = br.readLine()) != null) {
                 Vector v = Vector.stringToVector(str);
                 vectors.insert(v);
-                if(vectors.size() > m) {
+                if (vectors.size() > m) {
                     vectors.delMax();
                 }
             }
@@ -65,26 +68,6 @@ public class Vector {
             assert current != null;
             System.out.println(current.toString() + " - distance: " + current.distanceTo(vector));
         }
-    }
-
-    public String toString() {
-        return Arrays.toString(values);
-    }
-
-    private int dimension() {
-        return values.length;
-    }
-
-    // berechnet die Distanz(in double) dieses Vektors zu einem gegebenen
-    private double distanceTo(Vector other) {
-        if (this.dimension() != other.dimension())
-            throw new IllegalArgumentException();
-
-        double result = 0;
-        for (int i = 0; i < dimension(); i++) {
-            result += Math.pow((this.values[i] - other.values[i]), 2);
-        }
-        return Math.sqrt(result);
     }
 
     //erzeugt einen Vektor aus einem String
@@ -110,5 +93,25 @@ public class Vector {
             writer.write("\n");
         }
         writer.close();
+    }
+
+    public String toString() {
+        return Arrays.toString(values);
+    }
+
+    private int dimension() {
+        return values.length;
+    }
+
+    // berechnet die Distanz(in double) dieses Vektors zu einem gegebenen
+    private double distanceTo(Vector other) {
+        if (this.dimension() != other.dimension())
+            throw new IllegalArgumentException();
+
+        double result = 0;
+        for (int i = 0; i < dimension(); i++) {
+            result += Math.pow((this.values[i] - other.values[i]), 2);
+        }
+        return Math.sqrt(result);
     }
 }
