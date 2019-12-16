@@ -3,9 +3,6 @@ package sort.QuickBars;
 import edu.princeton.cs.algs4.StdDraw;
 import edu.princeton.cs.algs4.StdRandom;
 
-import java.util.Arrays;
-import java.util.HashMap;
-
 public class QuickBars5 {
     private static final int VERTICAL = 70;
     private static final int CUTOFF = 8;
@@ -80,19 +77,18 @@ public class QuickBars5 {
         int leftMiddle = (lo + middle) / 2;
         int rightMiddle = (hi + middle) / 2;
 
-        Comparable[] elements = new Comparable[]{list[lo], list[middle], list[hi], list[leftMiddle], list[rightMiddle]};
-        HashMap<Comparable, Integer> indexMap = new HashMap<>();
-        indexMap.put(list[lo], lo);
-        indexMap.put(list[hi], hi);
-        indexMap.put(list[middle], middle);
-        indexMap.put(list[leftMiddle], leftMiddle);
-        indexMap.put(list[rightMiddle], rightMiddle);
+        return median3(list,
+                median3(list, lo, leftMiddle, middle),
+                median3(list, leftMiddle, middle, rightMiddle),
+                median3(list, middle, rightMiddle, hi)
+        );
+    }
 
-        Arrays.sort(elements);
-
-        System.out.println("value median: 5 " + elements[middle]);
-        System.out.println("index median: 5 " + indexMap.get(elements[middle]));
-        return indexMap.get(elements[middle]);
+    // return the index of the median element among a[i], a[j], and a[k]
+    private static int median3(double[] a, int i, int j, int k) {
+        return (less(a[i], a[j]) ?
+                (less(a[j], a[k]) ? j : less(a[i], a[k]) ? k : i) :
+                (less(a[k], a[j]) ? j : less(a[k], a[i]) ? k : i));
     }
 
 
@@ -120,8 +116,8 @@ public class QuickBars5 {
     }
 
     public static void main(String[] args) {
-        int m = Integer.parseInt(args[0]);
-        int n = Integer.parseInt(args[1]);
+        int m = 100;//Integer.parseInt(args[0]);
+        int n = 75;//Integer.parseInt(args[1]);
         double[] a = new double[n];
         double[] b = new double[n];
         for (int i = 0; i < n; i++) {
